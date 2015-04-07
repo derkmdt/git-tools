@@ -1,0 +1,29 @@
+#!/bin/bash
+# isr - Is Stash Required?
+# Returns 0 when no stashing required, 1 when required.
+  
+# Check if we need to stash.
+
+if [ ! -z $1 ]
+then
+  cd $1
+fi
+
+{
+  git status > /tmp/isr_git_status
+  pcregrep 'Changes not staged for commit' /tmp/isr_git_status  
+} &> /dev/null
+
+exitcode=$?
+
+wd=`pwd`
+echo "[isr] Completed check on $wd"
+
+if [ $exitcode == "1" ]
+then
+  echo "[isr] Stashing is not required"
+  exit 0
+else
+  echo "[isr] Stashing is required."
+  exit 1
+fi
