@@ -46,7 +46,7 @@ pur)
   doPop;
   ;;
 rob)
-  showHeader "rob: Rebase on Master"
+  showHeader "rob: Rebase (current branch) On Master"
   doStash;
   
   if [ $current_branch != 'master' ]
