@@ -5,7 +5,7 @@ then
   option=$1
 else
   echo "pur - Pull (with rebase)";
-  echo "rob - Rebase current branch on master";
+  echo "mom - Merge master on current branch";
   echo "ps  - Push";
   echo "Select your option:"
   read option
@@ -45,8 +45,8 @@ pur)
 
   doPop;
   ;;
-rob)
-  showHeader "rob: Rebase (current branch) On Master"
+mom)
+  showHeader "mom: Merge master on current branch"
   doStash;
   
   if [ $current_branch != 'master' ]
@@ -54,7 +54,7 @@ rob)
     git checkout master
     git pull --rebase
     git checkout $current_branch
-    git rebase master
+    git merge master
   else
     echo "Already on master - not rebasing."
   fi
